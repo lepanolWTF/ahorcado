@@ -1,4 +1,4 @@
-package Chek;
+package Chekeo;
 
 import java.text.Normalizer;
 
