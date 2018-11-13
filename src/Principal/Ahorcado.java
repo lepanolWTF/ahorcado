@@ -30,17 +30,19 @@ public class Ahorcado extends HttpServlet {
 		put(8, "mamut");
 
 	}}; 
-	private String[] limpia,solu,original;
-	private int aleatorio;
+	private String[] limpia,estado,original;
+	private int aleatorio,vidas;
+	private boolean nuevo=true;
     public Ahorcado() {
         super();
     }
     private void nuevaPartida() {
-		aleatorio = (int) ((Math.random() * ( 8 - 1 )) + 1);
+		aleatorio = (int) ((Math.random() * ( animales.size() - 1 )) + 1);
 		original=animales.get(aleatorio).split("");
 		limpia=Comprobar.clean(animales.get(aleatorio)).split("");
-		solu=new String[limpia.length];
+		estado=new String[limpia.length];
     }
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("utf-8");
 		
@@ -53,11 +55,16 @@ public class Ahorcado extends HttpServlet {
 				original = (String[]) laSesion.getAttribute("original");
 			}
 			if (laSesion.getAttribute("solu") != null) {
-				solu = (String[]) laSesion.getAttribute("solu");
+				estado = (String[]) laSesion.getAttribute("estado");
 			}
+			
 		}else{
 			nuevaPartida();
+//			laSesion.setAttribute("estado", estado);
+//			laSesion.setAttribute("limpia", limpia);
+//			laSesion.setAttribute("original", original);
 		}
+		request.setAttribute("estado",estado);
 		
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(vista);
