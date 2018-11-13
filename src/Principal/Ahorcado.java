@@ -1,6 +1,7 @@
 package Principal;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -31,7 +32,8 @@ public class Ahorcado extends HttpServlet {
 
 	}}; 
 	private String[] limpia,estado,original;
-	private int aleatorio,vidas;
+	private int aleatorio,vidas=8;
+	private ArrayList<String> erroneas = new ArrayList<String>();
 	private boolean nuevo=true;
     public Ahorcado() {
         super();
@@ -48,23 +50,29 @@ public class Ahorcado extends HttpServlet {
 		
 		HttpSession laSesion= request.getSession(false);  //carga la sessi�n si existe, devuelve null sino
 		if(laSesion != null) {
-			if (laSesion.getAttribute("limpia") != null) {
-				limpia = (String[]) laSesion.getAttribute("limpia");
+			if (laSesion.getAttribute("vidas") != null) {
+				vidas = (int) laSesion.getAttribute("vidas");
 			}
 			if (laSesion.getAttribute("original") != null) {
 				original = (String[]) laSesion.getAttribute("original");
 			}
-			if (laSesion.getAttribute("solu") != null) {
+			if (laSesion.getAttribute("estado") != null) {
 				estado = (String[]) laSesion.getAttribute("estado");
 			}
-			
+			if (laSesion.getAttribute("erroneas") != null) {
+				erroneas = (ArrayList<String>) laSesion.getAttribute("erroneas");
+			}
+			limpia=Comprobar.clean(Comprobar.aTexto(original)).split("");
 		}else{
 			nuevaPartida();
-//			laSesion.setAttribute("estado", estado);
-//			laSesion.setAttribute("limpia", limpia);
-//			laSesion.setAttribute("original", original);
+			laSesion= request.getSession(true);
+			laSesion.setAttribute("estado", estado);
+			laSesion.setAttribute("vidas", vidas);
+			laSesion.setAttribute("original", original);
 		}
 		request.setAttribute("estado",estado);
+		request.setAttribute("vidas",vidas);
+		request.setAttribute("erroneas", erroneas);
 		
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(vista);

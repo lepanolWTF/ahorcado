@@ -1,6 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> <%@ page session="false" %>
-    <%String[]  estado=(String[])request.getAttribute("estado"); %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*"%>
+    <%String[]  estado=(String[])request.getAttribute("estado");
+    int vidas=(int) request.getAttribute("vidas");
+    ArrayList<String> erroneas = new ArrayList<String>();
+    erroneas=(ArrayList<String>) request.getAttribute("erroneas");%>
+    
    
 <!DOCTYPE html>
 <html>
@@ -8,7 +11,7 @@
 <meta charset="UTF-8">
 <title>Ahorcado</title>
 <style type="text/css">
-table, tr, td {
+tr, td{
    border: 1px solid black;
 }
 </style>
@@ -22,11 +25,18 @@ table, tr, td {
 					<td>_</td>
 				<%}else{ %>
 					<td><%=estado[i] %></td>
-			<%} }%>
+			<%}}%>
 		</tr>
-	</table>
+	</table><br/><br/>
+	Letras introducidas qye son erroneas:<%for(int i=0;i<erroneas.size();i++){ 
+												if(i==0){%>
+													<%=erroneas.get(0)%>
+												<%}else{ %>
+													,<%=erroneas.get(0)%>
+											<%}}%><br/>
+	Vidas restantes: <%=vidas %>
 	<form action="Ahorcado" method="post">
-	
+		<input type="text" name="letra"><br/>
 	<input type="submit" value="enviar">
 	</form>
 </body>
