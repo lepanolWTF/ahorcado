@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -80,11 +81,29 @@ public class Ahorcado extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		String letra=request.getParameter("letra");
+		String exp="[a-z]{1}";
+//		Pattern.matches(exp,"g")
+		HttpSession laSesion= request.getSession(false);  //carga la sessi�n si existe, devuelve null sino
+		if(laSesion != null) {
+			if (laSesion.getAttribute("vidas") != null) {
+				vidas = (int) laSesion.getAttribute("vidas");
+			}
+			if (laSesion.getAttribute("original") != null) {
+				original = (String[]) laSesion.getAttribute("original");
+			}
+			if (laSesion.getAttribute("estado") != null) {
+				estado = (String[]) laSesion.getAttribute("estado");
+			}
+			if (laSesion.getAttribute("erroneas") != null) {
+				erroneas = (ArrayList<String>) laSesion.getAttribute("erroneas");
+			}
+			limpia=Comprobar.clean(Comprobar.aTexto(original)).split("");
+		}
 		
-		
-		
-		
+		if(letra!=null && !erroneas.contains(letra)) {
+			
+		}
 		
 		
 		

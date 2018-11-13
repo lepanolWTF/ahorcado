@@ -17,4 +17,10 @@ public class Comprobar {
     	
     	return cad;
     }
+    
+    
+    public static boolean comLetra() {
+    	
+    	return false;
+    }
 }
