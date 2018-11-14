@@ -25,11 +25,11 @@ public class Ahorcado extends HttpServlet {
 		put(1, "gorrión");
 		put(2, "jurel");
 		put(3, "gato");
-		put(4, "perro");	
-		put(5, "elefante");
-		put(6, "hormiga");	
-		put(7, "rinoceronte");
-		put(8, "mamut");
+//		put(4, "perro");	
+//		put(5, "elefante");
+//		put(6, "hormiga");	
+//		put(7, "rinoceronte");
+//		put(8, "mamut");
 
 	}}; 
 	private String[] limpia,estado,original;
@@ -101,11 +101,26 @@ public class Ahorcado extends HttpServlet {
 			limpia=Comprobar.clean(Comprobar.aTexto(original)).split("");
 		}
 		
-		if(letra!=null && !erroneas.contains(letra)) {
+		if(letra!=null) {
+			//si letra no esta en la lista de erroneas y cumple que es una letra sola
+			if(Pattern.matches(exp,letra) && !erroneas.contains(Comprobar.clean(letra).toLowerCase())) {
+				if(Comprobar.comLetra(limpia, letra)) {
+			    	for(int i=0;i<limpia.length;i++) {
+			    		if(limpia[i].equals(letra)) {
+			    			estado[i]=original[i];
+			    		}
+			    	}
+				}else {
+					erroneas.add(letra);
+				}
+			}
+		}else{
 			
 		}
 		
-		
+		request.setAttribute("estado",estado);
+		request.setAttribute("vidas",vidas);
+		request.setAttribute("erroneas", erroneas);
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(vista);
         dispatcher.forward(request, response); 

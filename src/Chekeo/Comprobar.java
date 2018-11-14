@@ -19,8 +19,12 @@ public class Comprobar {
     }
     
     
-    public static boolean comLetra() {
-    	
+    public static boolean comLetra(String[] limpia,String letra) {
+    	for(int i=0;i<limpia.length;i++) {
+    		if(limpia[i].equals(letra)) {
+    			return true;
+    		}
+    	}
     	return false;
     }
 }
