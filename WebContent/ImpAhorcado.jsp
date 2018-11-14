@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*"%>
     <%String[]  estado=(String[])request.getAttribute("estado");
-    //int vidas=(int) request.getAttribute("vidas");
+    int vidas=(int) request.getAttribute("vidas");
+    int vida=vidas-1;
     ArrayList<String> erroneas = new ArrayList<String>();
     erroneas=(ArrayList<String>) request.getAttribute("erroneas");%>
     
@@ -39,17 +40,21 @@
 				<%}}%>
 			</tr>
 		</table><br/><br/>
+		
+		<img id="home" src="./img/<%=vidas%>.jpg"><br><br>
 		Letras introducidas qye son erroneas:<%for(int i=0;i<erroneas.size();i++){ 
 													if(i==0){%>
-														<%=erroneas.get(0)%>
+														<%=erroneas.get(i)%>
 													<%}else{ %>
-														,<%=erroneas.get(0)%>
+														,<%=erroneas.get(i)%>
 												<%}}%><br/>
-		Vidas restantes: 
+		Vidas restantes: <%=vida%>
 		<form action="Ahorcado" method="post">
 			<input type="text" name="letra"><br/>
 		<input type="submit" value="enviar">
 		</form>
+		<br/>
+		<a href="Ahorcado?empezar">Empezar</a>
 	</div>
 </body>
 </html>

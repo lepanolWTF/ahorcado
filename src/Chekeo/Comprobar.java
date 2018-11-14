@@ -4,11 +4,18 @@ import java.text.Normalizer;
 
 public class Comprobar {
     public static String clean(String texto) {
+
         texto = Normalizer.normalize(texto, Normalizer.Form.NFD);
         texto = texto.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+
         return texto;
     }
     
+    public static String clean2(String texto) {
+    	String cadenaNormalize = Normalizer.normalize(texto, Normalizer.Form.NFD); 
+        texto=cadenaNormalize.replaceAll("[^\\p{ASCII}]", "");
+        return texto;
+    }
     public static String aTexto (String[] arr) {
     	String cad="";
     	for(int i=0; i<arr.length;i++) {
