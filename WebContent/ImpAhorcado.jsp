@@ -3,7 +3,8 @@
     int vidas=(int) request.getAttribute("vidas");
     int vida=vidas-1;
     ArrayList<String> erroneas = new ArrayList<String>();
-    erroneas=(ArrayList<String>) request.getAttribute("erroneas");%>
+    erroneas=(ArrayList<String>) request.getAttribute("erroneas");
+    boolean ganaste =true;%>
     
    
 <!DOCTYPE html>
@@ -34,7 +35,7 @@
 			<tr>
 				<%for(int i=0;i<estado.length;i++){ 
 					if(estado[i]==null){%>
-						<td>_</td>
+						<td>_</td><%ganaste=false; %>
 					<%}else{ %>
 						<td><%=estado[i] %></td>
 				<%}}%>
@@ -49,10 +50,12 @@
 														,<%=erroneas.get(i)%>
 												<%}}%><br/>
 		Vidas restantes: <%=vida%>
+		<%if(vidas>0 && ganaste!=true){ %>
 		<form action="Ahorcado" method="post">
 			<input type="text" name="letra"><br/>
 		<input type="submit" value="enviar">
 		</form>
+		<%} %>
 		<br/>
 		<a href="Ahorcado?empezar">Empezar</a>
 	</div>

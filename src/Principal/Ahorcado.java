@@ -38,7 +38,7 @@ public class Ahorcado extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
 		String[] limpia,estado,original=null;
 		String originalStr;
 		aleatorio = (int) ((Math.random() * ( animales.size() - 1 )) + 1);
